@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GalerieController!
+{% endblock %}
+
+{% block body %}
+	<section class="beatmap">
+		<div class="container">
+			<form method="get">
+				<input type="text" name="q" value="{{ query }}" placeholder="Rechercher...">
+				<button class="btn" type="submit">Chercher</button>
+			</form>
+			<div class="card_list">
+				{% for set in beatmaps %}
+					<div class="beatmap_card">
+						<img src="{{ set.covers.list|default('https://assets.ppy.sh/beatmaps/' ~ set.id ~ '/covers/cover.jpg') }}">
+
+						<h3>{{ set.artist }}
+							-
+							{{ set.title }}</h3>
+						<p>Mapper:
+							{{ set.creator }}</p>
+						<p>Difficultés:
+							{{ set.beatmaps|length }}
+							(ex:
+							{{ set.beatmaps[0].version ?? 'N/A' }})</p>
+
+						<form method="post" action="{{ path('favorite_add', {beatmapsetId: set.id}) }}">
+							<button>Favori</button>
+						</form>
+
+						<a href="https://osu.ppy.sh/beatmapsets/{{ set.id }}/download">Télécharger</a>
+					</div>
+
+
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endblock %}

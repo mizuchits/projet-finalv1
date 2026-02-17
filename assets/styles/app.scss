@@ -1,3 +1,7 @@
-body {
-    background-color: skyblue;
-}
+@use 'abstracts' as *;
+@use "layout/body";
+@use "layout/accueil";
+@use "layout/beatmap";
+@use "base/container";
+@use "base/fonts";
+@use "components/btn";

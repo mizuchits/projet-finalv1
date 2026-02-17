@@ -1,0 +1,20 @@
+@use '../abstracts/variables' as *;
+
+.accueil {
+    background-color: $primary-color;
+    margin: 50px 60px;
+    padding: 50px;
+    color: $color-accent;
+    div {
+        img {
+            height: 200px;
+        }
+
+        .btn-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}

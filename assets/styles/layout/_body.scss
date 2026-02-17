@@ -1,0 +1,140 @@
+@use '../abstracts/variables' as *;
+
+body {
+    margin: 0px;
+    font-family: $primary-font;
+    background-color: $bg-color;
+}
+
+h1,
+h2,
+h3 {
+    font-family: $title-font;
+}
+
+nav ul li a {
+    font-family: $primary-font;
+}
+
+header {
+    width: 100%;
+    background-color: $primary-color;
+
+
+    div {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        .logo {
+            img {
+                height: 70px;
+            }
+        }
+    }
+
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 3em;
+}
+
+nav ul li {
+    list-style: none;
+    font-size: 16px;
+}
+
+nav ul li a {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    color: $secondary-color;
+    text-decoration: none;
+    font-family: $title-font;
+}
+
+.menu-line {
+    width: 40px;
+    border: 2px solid $secondary-color;
+    border-radius: 10px;
+}
+
+.menu {
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    gap: 0.60em;
+}
+
+@media (max-width: 768px) {
+
+    header {
+        position: relative;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6em;
+        cursor: pointer;
+    }
+
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: transparent;
+    }
+
+    nav ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        background-color: $color-accent;
+        gap: 0;
+
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.25s ease;
+    }
+
+    nav.nav-menu ul {
+        transform: scaleY(1);
+    }
+}
+
+footer {
+    background-color: $primary-color;
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 100px;
+
+        div {
+            img {
+                height: 150px;
+            }
+
+            nav {
+                ul {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+            }
+        }
+    }
+    .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.103);
+
+        p {
+            color: $color-accent;
+            font-size: 0.8rem;
+        }
+    }
+}

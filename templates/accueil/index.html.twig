@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!
+{% endblock %}
+
+{% block body %}
+	<section class="accueil">
+    <div class="container">
+		<img src={{asset('images/logo.png')}} alt="">
+		<p>Osu!maps manager est ton compagnon idéal pour tous les amateurs de beatmaps. Recherche instantanément des milliers de maps, ajoute-les à tes favoris et accède-y en un clic depuis n'importe où. Crée ton compte gratuitement, organise ta collection et rends tes sessions osu! plus personnalisées.</p>
+		<p>Ce que tu peux faire en quelques clics :</p>
+		<ul>
+			<li>Recherche puissante : trouve tes maps préférées par artiste, titre, mapper ou difficulté (via l'API officielle osu!).</li>
+			<li>Favoris illimités : sauvegarde tes beatmaps dans ton profil personnel – packs complets avec toutes les difficultés incluses.</li>
+			<li>Accès rapide : tes favoris toujours disponibles, avec les covers, les liens de téléchargement et les previews.</li>
+			<li>Compte dédié : inscription simple, sans lien obligatoire avec osu! – tout reste privé et synchronisé.</li>
+		</ul>
+        {% if app.user %}
+                <div class="btn-container">
+                    <a class="btn" href="{{ path("beatmap_search") }}">Parcourir les beatmaps</a>
+                </div>
+            {% else %}
+                <div class="btn-container">
+                    <a class="btn" href="{{ path("app_login") }}">se connecter</a>
+                </div>
+            {% endif %}
+            </div>
+	</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+@use '../abstracts/variables' as *;
+
+.btn {
+    font-family: $title-font;
+    padding: 15px;
+    background-color: #C35B8B;
+    text-decoration: none;
+    color: $color-accent;
+}

@@ -1,4 +1,4 @@
-import './stimulus_bootstrap.js';
+// import './stimulus_bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -8,3 +8,10 @@ import './stimulus_bootstrap.js';
 import './styles/app.scss';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+const menu = document.querySelector('.menu');
+const nav = document.querySelector('.links-menu');
+
+menu.addEventListener('click', () => {
+  nav.classList.toggle('nav-menu');
+});
