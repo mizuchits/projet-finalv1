@@ -10,31 +10,49 @@
 				<input type="text" name="q" value="{{ query }}" placeholder="Rechercher...">
 				<button class="btn" type="submit">Chercher</button>
 			</form>
-			<div class="card_list">
-				{% for set in beatmaps %}
-					<div class="beatmap_card">
-						<img src="{{ set.covers.list|default('https://assets.ppy.sh/beatmaps/' ~ set.id ~ '/covers/cover.jpg') }}">
-
-						<h3>{{ set.artist }}
-							-
-							{{ set.title }}</h3>
-						<p>Mapper:
-							{{ set.creator }}</p>
-						<p>Difficultés:
-							{{ set.beatmaps|length }}
-							(ex:
-							{{ set.beatmaps[0].version ?? 'N/A' }})</p>
-
-						<form method="post" action="{{ path('favorite_add', {beatmapsetId: set.id}) }}">
-							<button>Favori</button>
-						</form>
-
-						<a href="https://osu.ppy.sh/beatmapsets/{{ set.id }}/download">Télécharger</a>
+			{% if beatmaps is empty %}
+				<div class="accueil">
+					<div class="container empty_map">
+						<img src={{asset('images/empty.png')}} alt="">
+						<h2>... non, rien trouvé.</h2>
 					</div>
+				</div>
+			{% else %}
+				<div class="card_list">
+					{% for set in beatmaps %}
+						<div class="beatmap_card">
+							<img src="{{ set.covers.list|default('https://assets.ppy.sh/beatmaps/' ~ set.id ~ '/covers/cover.jpg') }}">
 
+							<h3>{{ set.artist }}
+								-
+								{{ set.title }}</h3>
+							<p>Mapper:
+								{{ set.creator }}</p>
+							<p>Difficultés max:
+								{{ set.beatmaps|length }}
+								(ex:
+								{{ set.beatmaps[0].version ?? 'N/A' }})</p>
 
-				{% endfor %}
-			</div>
+							<div class="beatmap_btn">
+								{% if app.user and set.id in favoriteIds %}
+									<form method="post" action="{{ path('app_delete_favorite', {id: set.id}) }}">
+										<a href="{{path('app_profile')}}" class="btn btn-delete"><img src="{{ asset('images/heart(1).png') }}" alt="Voir"></a>
+									</form>
+								{% else %}
+									<form method="post" action="{{ path('favorite_add', {beatmapsetId: set.id}) }}">
+										<button type="submit">
+											<img src="{{ asset('images/heart.png') }}" alt="Ajouter">
+										</button>
+									</form>
+								{% endif %}
+								<a href="https://osu.ppy.sh/beatmapsets/{{ set.id }}/download" title="Télécharger">
+									<img src="{{ asset('images/download.png') }}" alt="Télécharger">
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
 		</div>
 	</section>
 {% endblock %}

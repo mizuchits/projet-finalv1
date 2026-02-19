@@ -4,6 +4,7 @@ body {
     margin: 0px;
     font-family: $primary-font;
     background-color: $bg-color;
+    position: relative;
 }
 
 h1,
@@ -16,15 +17,29 @@ nav ul li a {
     font-family: $primary-font;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 header {
     width: 100%;
     background-color: $primary-color;
+
+    .profil_btn {
+            img {
+                height: 40px;
+                border-radius: 100%;
+                max-width: 45px;
+            }
+        }
 
 
     div {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+        height: 100%;
 
         .logo {
             img {
@@ -39,6 +54,7 @@ nav ul {
     list-style: none;
     display: flex;
     gap: 3em;
+    align-items: center;
 }
 
 nav ul li {
@@ -109,6 +125,8 @@ nav ul li a {
 
 footer {
     background-color: $primary-color;
+    margin-top: 20px;
+
     div {
         display: flex;
         justify-content: center;
@@ -129,6 +147,7 @@ footer {
             }
         }
     }
+
     .footer-bottom {
         border-top: 1px solid rgba(255, 255, 255, 0.103);
 

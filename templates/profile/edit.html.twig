@@ -1,6 +1,6 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block title %}S'inscrire
+{% block title %}Hello EditController!
 {% endblock %}
 
 {% block body %}
@@ -9,10 +9,10 @@
 			<div class="form-container">
 				<h2>Créer un compte</h2>
 
-				{{ form_start(Register) }}
-				{{ form_widget(Register) }}
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
 				<button type="submit" class="btn">S'inscrire</button>
-				{{ form_end(Register) }}
+				{{ form_end(form) }}
 
 				<p>Vous avez déjà un compte ?
 					<a href="{{ path('app_login') }}">Se connecter</a>
@@ -20,5 +20,4 @@
 			</div>
 		</div>
 	</section>
-
 {% endblock %}

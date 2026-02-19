@@ -5,6 +5,7 @@
     margin: 50px 60px;
     padding: 50px;
     color: $color-accent;
+    border-radius: 15px;
     div {
         img {
             height: 200px;
@@ -15,6 +16,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-top: 20px;
         }
     }
 }

@@ -1,0 +1,9 @@
+@use '../abstracts/variables' as *;
+
+.form {
+    background-color: $primary-color;
+    margin: 50px 60px;
+    padding: 50px;
+    color: $color-accent;
+    border-radius: 15px;
+}

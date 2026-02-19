@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ResetPasswordController!
+{% endblock %}
+
+{% block body %}
+	<section class="form">
+		<div class="container">
+			{{ form_start(requestForm, {'attr': {'method': 'post'}}) }}
+			{{ form_widget(requestForm, {'attr': {'class': 'form-control'}}) }}
+			<button type="submit" class="btn">Envoyer le lien de réinitialisation</button>
+			{{ form_end(requestForm) }}
+		</div>
+	</section>
+
+{% endblock %}

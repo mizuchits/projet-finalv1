@@ -38,19 +38,30 @@
 				</li>
 				{% if is_granted('ROLE_USER') %}
 					<li>
-						<a href="app_logout">Deconnexion</a>
+						<a href={{path('app_logout')}}>Deconnexion</a>
+					</li>
+					<li>
+						<a href="{{ path('app_profile') }}" class="profil_btn">
+							{% if app.user and app.user.imageName %}
+								<img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="Avatar">
+							{% else %}
+								<img src="{{ asset('images/default.png') }}" alt="Avatar par défaut">
+							{% endif %}
+						</a>
 					</li>
 				{% endif %}
 				{% if not is_granted('ROLE_USER') %}
 					<li>
-						<a href="app_login">Connexion</a>
+						<a href={{path('app_login')}}>Connexion</a>
 					</li>
 					<li>
-						<a href="app_register">S'inscrire</a>
+						<a href={{path('app_register')}}>S'inscrire</a>
 					</li>
 				{% endif %}
 			</ul>
+
 		</nav>
+
 	</div>
 </header>
 {% block body %}{% endblock %}</body><footer>

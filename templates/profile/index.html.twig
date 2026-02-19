@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<h1>Mon Profil</h1>
+        
+
+		<div class="card mb-4">
+			<div class="card-body">
+				<h3>{{ user.username }}</h3>
+				<p>
+					<strong>Nombre de favoris :</strong>
+					{{ favorites|length }}</p>
+			</div>
+		</div>
+
+		<h2>Mes Beatmaps Favoris</h2>
+
+		{% if favorites is empty %}
+			<div class="alert alert-info">
+				Vous n'avez pas encore ajouté de beatmap en favori.
+				<a href="{{ path('beatmap_search') }}" class="btn btn-primary btn-sm ms-2">Rechercher maintenant</a>
+			</div>
+		{% else %}
+			<div class="row">
+				{% for fav in favorites %}
+					<div class="col-md-4 mb-4">
+						<div class="card h-100">
+							<img src="{{ fav.coverUrl }}" class="card-img-top" alt="{{ fav.title }} cover">
+							<div class="card-body">
+								<h5 class="card-title">{{ fav.artist }}
+									-
+									{{ fav.title }}</h5>
+
+								<div class="d-flex justify-content-between mt-3">
+									<a href="https://osu.ppy.sh/beatmapsets/{{ fav.beatmapsetId }}/download" target="_blank">
+										Télécharger
+									</a>
+									{% if app.user and fav.user and app.user.id == fav.user.id %}
+										
+										<a href="{{path('app_delete_favorite',{'id' : fav.id})}}" class="btn btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette lanterne ?');">Supprimer</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

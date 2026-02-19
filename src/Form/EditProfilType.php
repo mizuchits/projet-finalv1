@@ -8,18 +8,17 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegisterType extends AbstractType
+class EditProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('ImageFile', FileType::class, [
+        ->add('username')
+        ->add('password')
+            ->add('imageFile', FileType::class, [
                 'required' => false,
                 'mapped' => true,
             ])
-            ->add('username')
-            ->add('email')
-            ->add('password')
         ;
     }
 
