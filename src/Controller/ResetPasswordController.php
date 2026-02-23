@@ -40,7 +40,7 @@ final class ResetPasswordController extends AbstractController
                     ->to($user->getEmail())
                     ->subject('Réinitialisation de votre mot de passe')
                     ->text('Voici votre lien de réinitialisation : ' . $resetLink);
-                $mailer->send($email); //Envoi du mail
+                $mailer->send($email);
                 $this->addFlash('success', 'Un email de réinitialisation a été envoyé.');
                 return $this->redirectToRoute('app_login');
             }
@@ -55,10 +55,9 @@ final class ResetPasswordController extends AbstractController
     #[Route('/reset-password/{token}', name: 'app_reset_password')]
     public function reset(string $token, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-        $user = $userRepository->findOneBy(['resetToken' => $token]); //Requete DQL pour récupérer l'objet User associé au token
+        $user = $userRepository->findOneBy(['resetToken' => $token]);
 
         if (!$user || !$user->isResetTokenValid()) {
-            //Vérification si l'objet User n'a pas été trouvé ou que le token est pas valide (via la méthode créée dans le User)...
             $this->addFlash('danger','Ce lien de réinitialisation est invalide ou expiré.');
             return $this->redirectToRoute('app_forgot_password');
         }
@@ -67,11 +66,9 @@ final class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //création d'un nouveau mot de passe
             $password = $form->get('plainPassword')->getData();
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
             $user->setPassword($hashedPassword);
-            //Réinitialisation des propriétés ResetToken et TokenExpiresAt de l'objet User
             $user->setResetToken(null);
             $user->setResetTokenExpiresAt(null);
             $entityManager->flush();

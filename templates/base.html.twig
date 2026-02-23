@@ -36,7 +36,7 @@
 				<li>
 					<a href={{path('beatmap_search')}}>Beatmaps</a>
 				</li>
-				{% if is_granted('ROLE_USER') %}
+				{% if app.user %}
 					<li>
 						<a href={{path('app_logout')}}>Deconnexion</a>
 					</li>
@@ -49,13 +49,12 @@
 							{% endif %}
 						</a>
 					</li>
-				{% endif %}
-				{% if not is_granted('ROLE_USER') %}
+				{% else %}
 					<li>
-						<a href={{path('app_login')}}>Connexion</a>
+						<a href="{{ path('app_login') }}">Connexion</a>
 					</li>
 					<li>
-						<a href={{path('app_register')}}>S'inscrire</a>
+						<a href="{{ path('app_register') }}">S'inscrire</a>
 					</li>
 				{% endif %}
 			</ul>

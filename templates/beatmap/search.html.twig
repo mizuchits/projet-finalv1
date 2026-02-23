@@ -6,6 +6,13 @@
 {% block body %}
 	<section class="beatmap">
 		<div class="container">
+			{% for label, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="alert alert-{{ label == 'error' ? 'danger' : label }}">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endfor %}
 			<form method="get">
 				<input type="text" name="q" value="{{ query }}" placeholder="Rechercher...">
 				<button class="btn" type="submit">Chercher</button>

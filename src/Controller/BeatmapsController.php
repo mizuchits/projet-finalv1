@@ -6,7 +6,7 @@ use App\Entity\Favorite;
 use App\Service\OsuapiService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -46,12 +46,15 @@ class BeatmapsController extends AbstractController
     }
 
     #[Route('/favorite/add/{beatmapsetId}', name: 'favorite_add', methods: ['POST'])]
-    public function addFavorite(int $beatmapsetId, EntityManagerInterface $em): JsonResponse
-    {
+    public function addFavorite(
+        int $beatmapsetId,
+        EntityManagerInterface $em,
+        Request $request
+    ): RedirectResponse {
 
         $user = $this->getUser();
         if (!$user) {
-            return $this->json(['error' => 'Not logged in'], 401);
+            return $this->redirectToRoute('app_login');
         }
         $existing = $em->getRepository(Favorite::class)->findOneBy([
             'user' => $user,
@@ -59,13 +62,13 @@ class BeatmapsController extends AbstractController
         ]);
 
         if ($existing) {
-            return $this->json(['already' => true]);
+            $this->addFlash('info', 'Cette beatmap est déjà dans vos favoris.');
         }
 
 
         $setInfo = $this->osuApi->getBeatmapset($beatmapsetId);
         if (!$setInfo) {
-            return $this->json(['error' => 'Beatmapset not found'], 404);
+            $this->addFlash('error', 'Beatmap introuvable.');
         }
 
 
@@ -78,8 +81,15 @@ class BeatmapsController extends AbstractController
 
         $em->persist($fav);
         $em->flush();
+        $this->addFlash('success', 'Beatmap ajoutée à vos favoris !');
 
-        return $this->json(['success' => true]);
+        $referer = $request->headers->get('referer');
+
+        if ($referer) {
+            return $this->redirect($referer);
+        }
+
+        return $this->redirectToRoute('app_profile');
     }
 
     #[Route('/Favorite/{id}/delete', name: 'app_delete_favorite')]
@@ -93,7 +103,6 @@ class BeatmapsController extends AbstractController
         $entityManager->remove($favorite);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Favorite supprimée avec succès !');
         return $this->redirectToRoute('app_profile');
     }
 }

@@ -6,4 +6,44 @@
     background-color: #C35B8B;
     text-decoration: none;
     color: $color-accent;
+    background-image: url('~@images/button_bg.svg');
+    background-position: 50%;
+    background-size: 175%;
+    border-radius: 6px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: all .12s ease-in-out;
+    overflow: hidden;
+
+    &:hover,
+    &:focus {
+        background-position: 60% 50%;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.062);
+            opacity: 0;
+            transition: opacity 0.18s ease-in-out;
+        }
+
+        &::after {
+            opacity: 1;
+        }
+
+        transform: translateY(0px) scale(1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    &:active {
+        transform: translateY(0) scale(1);
+        transition: transform 0.08s ease-in-out;
+    }
 }

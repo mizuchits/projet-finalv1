@@ -4,51 +4,67 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-5">
-		<h1>Mon Profil</h1>
-        
+	<section class="profile-header">
+		<div class="container">
+			<h1>Mon Profil</h1>
 
-		<div class="card mb-4">
-			<div class="card-body">
-				<h3>{{ user.username }}</h3>
-				<p>
-					<strong>Nombre de favoris :</strong>
-					{{ favorites|length }}</p>
+			<div class="profile-card">
+				<div class="avatar-wrapper">
+					{% if app.user and app.user.imageName %}
+						<img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="Avatar" class="avatar">
+					{% else %}
+						<img src="{{ asset('images/default.png') }}" alt="Avatar par défaut" class="avatar">
+					{% endif %}
+				</div>
+
+				<div class="profile-info">
+					<h2>{{ app.user.username }}</h2>
+					<p class="favorites-count">
+						<strong>{{ favorites|length }}</strong>
+						beatmaps en favoris
+					</p>
+					<a href="{{ path('app_edit') }}" class="btn btn-edit">Modifier le profil</a>
+				</div>
 			</div>
 		</div>
+	</section>
 
-		<h2>Mes Beatmaps Favoris</h2>
+	<section class="favorites-section">
+		<div class="container">
+			<h2>Mes Beatmaps Favoris</h2>
 
-		{% if favorites is empty %}
-			<div class="alert alert-info">
-				Vous n'avez pas encore ajouté de beatmap en favori.
-				<a href="{{ path('beatmap_search') }}" class="btn btn-primary btn-sm ms-2">Rechercher maintenant</a>
-			</div>
-		{% else %}
-			<div class="row">
-				{% for fav in favorites %}
-					<div class="col-md-4 mb-4">
-						<div class="card h-100">
-							<img src="{{ fav.coverUrl }}" class="card-img-top" alt="{{ fav.title }} cover">
-							<div class="card-body">
-								<h5 class="card-title">{{ fav.artist }}
+			{% if favorites is empty %}
+				<div class="empty-state">
+					<p>Vous n'avez pas encore ajouté de beatmap en favori.</p>
+					<a href="{{ path('beatmap_search') }}" class="btn btn-primary">Rechercher des beatmaps</a>
+				</div>
+			{% else %}
+				<div class="favorites-grid">
+					{% for fav in favorites %}
+						<div class="beatmap-card">
+							<div class="card-cover">
+								<img src="{{ fav.coverUrl }}" alt="{{ fav.title }} cover" loading="lazy">
+							</div>
+							<div class="card-content">
+								<h3>{{ fav.artist }}
 									-
-									{{ fav.title }}</h5>
+									{{ fav.title }}</h3>
+								<div class="card-actions">
+									<a href="https://osu.ppy.sh/beatmapsets/{{ fav.beatmapsetId }}/download" target="_blank" class="btn btn-download">Télécharger</a>
 
-								<div class="d-flex justify-content-between mt-3">
-									<a href="https://osu.ppy.sh/beatmapsets/{{ fav.beatmapsetId }}/download" target="_blank">
-										Télécharger
-									</a>
 									{% if app.user and fav.user and app.user.id == fav.user.id %}
-										
-										<a href="{{path('app_delete_favorite',{'id' : fav.id})}}" class="btn btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette lanterne ?');">Supprimer</a>
+										<a href="{{ path('app_delete_favorite', {'id': fav.id}) }}" class="btn btn-delete" onclick="return confirm('Vraiment supprimer cette beatmap des favoris ?');">
+											Supprimer
+										</a>
 									{% endif %}
 								</div>
 							</div>
 						</div>
-					</div>
-				{% endfor %}
-			</div>
-		{% endif %}
-	</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</section>
+
+
 {% endblock %}
