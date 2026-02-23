@@ -27,12 +27,12 @@ header {
     background-color: $primary-color;
 
     .profil_btn {
-            img {
-                height: 40px;
-                border-radius: 100%;
-                max-width: 45px;
-            }
+        img {
+            height: 40px;
+            border-radius: 100%;
+            max-width: 45px;
         }
+    }
 
 
     div {
@@ -133,12 +133,18 @@ footer {
         align-items: center;
         gap: 100px;
 
+        @media (max-width: 768px) {
+            grid-template-columns: repeat(1, 1fr);
+            flex-direction: column;
+
+        }
+
         div {
             img {
                 height: 150px;
             }
 
-            nav {
+            .footer-menu {
                 ul {
                     display: flex;
                     flex-direction: column;
