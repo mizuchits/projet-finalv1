@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Favorite;
-use App\Form\EditBeatmapType;
 use App\Form\EditProfilType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
