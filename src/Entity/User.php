@@ -61,6 +61,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTime $resetTokenExpiresAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
     public function __construct()
     {
         $this->favorites = new ArrayCollection();
@@ -266,5 +269,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isResetTokenValid(): bool
     {
         return $this->resetTokenExpiresAt && $this->resetTokenExpiresAt > new \DateTime();
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }

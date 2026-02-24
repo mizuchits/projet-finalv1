@@ -31,4 +31,6 @@ final class ProfileController extends AbstractController
             'favorites' => $favorites,
         ]);
     }
+
+    
 }

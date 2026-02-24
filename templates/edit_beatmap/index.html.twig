@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EditBeatmapController!{% endblock %}
+
+{% block body %}
+<section class="form">
+		<div class="container">
+			<div class="form-container">
+				<h2>Modifier le profil</h2>
+
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				<button type="submit" class="btn">Modifier</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}

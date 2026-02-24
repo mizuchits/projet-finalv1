@@ -6,6 +6,15 @@
 {% block body %}
 	<section class="profile-header">
 		<div class="container">
+			{% for label, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="addflash">
+						<div class="alert alert-{{ label == 'error' ? 'danger' : label }}">
+							{{ message }}
+						</div>
+					</div>
+				{% endfor %}
+			{% endfor %}
 			<h1>Mon Profil</h1>
 
 			<div class="profile-card">
@@ -23,6 +32,13 @@
 						<strong>{{ favorites|length }}</strong>
 						beatmaps en favoris
 					</p>
+
+
+					{% if app.user.description is not empty %}
+						<h3>Description</h3>
+						<p>{{ app.user.description }}</p>
+						{% else %}
+					{% endif %}
 					<a href="{{ path('app_edit') }}" class="btn btn-edit">Modifier le profil</a>
 				</div>
 			</div>
@@ -49,6 +65,7 @@
 								<h3>{{ fav.artist }}
 									-
 									{{ fav.title }}</h3>
+								<p>{{ fav.description }}</p>
 								<div class="card-actions">
 									<a href="https://osu.ppy.sh/beatmapsets/{{ fav.beatmapsetId }}/download" target="_blank" class="btn btn-download">Télécharger</a>
 
@@ -56,6 +73,7 @@
 										<a href="{{ path('app_delete_favorite', {'id': fav.id}) }}" class="btn btn-delete" onclick="return confirm('Vraiment supprimer cette beatmap des favoris ?');">
 											Supprimer
 										</a>
+										<a href="{{ path('app_edit_beatmap', {'id': fav.id}) }}" class="btn">Éditer</a>
 									{% endif %}
 								</div>
 							</div>

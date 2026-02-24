@@ -28,6 +28,9 @@ class Favorite
     #[ORM\Column(length: 255)]
     private ?string $CoverUrl = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Favorite
     public function setCoverUrl(string $CoverUrl): static
     {
         $this->CoverUrl = $CoverUrl;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
