@@ -6,4 +6,46 @@
     padding: 50px;
     color: $color-accent;
     border-radius: 15px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        gap: 1.5rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: rgba($color-accent, 0.9);
+        }
+
+        input {
+
+            width: 60%;
+            padding: 14px 16px;
+            border: 1px solid rgba($color-accent, 0.25);
+            border-radius: 10px;
+            background: rgba($color-accent, 0.05);
+            color: $color-accent;
+            font-size: 1rem;
+            transition: all 0.25s ease;
+
+            &:focus {
+                outline: none;
+                border-color: $color-accent;
+                box-shadow: 0 0 0 3px rgba($color-accent, 0.15);
+                background: rgba($color-accent, 0.08);
+            }
+
+            &::placeholder {
+                color: rgba($color-accent, 0.5);
+            }
+
+
+        }
+        .btn {
+            max-width: 100px;
+        }
+    }
 }

@@ -17,6 +17,7 @@ class EditProfilType extends AbstractType
             ->add('imageFile', FileType::class, [
                 'required' => false,
                 'mapped' => true,
+                'label' => 'Photo de profil'
             ])
         ;
     }

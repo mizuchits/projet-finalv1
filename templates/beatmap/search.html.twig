@@ -13,7 +13,7 @@
 					</div>
 				{% endfor %}
 			{% endfor %}
-			<form method="get">
+			<form method="get" class="search">
 				<input type="text" name="q" value="{{ query }}" placeholder="Rechercher...">
 				<button class="btn" type="submit">Chercher</button>
 			</form>
@@ -25,36 +25,32 @@
 					</div>
 				</div>
 			{% else %}
-				<div class="card_list">
+				<div class="favorites-grid">
 					{% for set in beatmaps %}
-						<div class="beatmap_card">
-							<img src="{{ set.covers.list|default('https://assets.ppy.sh/beatmaps/' ~ set.id ~ '/covers/cover.jpg') }}">
-
-							<h3>{{ set.artist }}
-								-
-								{{ set.title }}</h3>
-							<p>Mapper:
-								{{ set.creator }}</p>
-							<p>Difficultés max:
-								{{ set.beatmaps|length }}
-								(ex:
-								{{ set.beatmaps[0].version ?? 'N/A' }})</p>
-
-							<div class="beatmap_btn">
-								{% if app.user and set.id in favoriteIds %}
-									<form method="post" action="{{ path('app_delete_favorite', {id: set.id}) }}">
-										<a href="{{path('app_profile')}}" class="btn btn-delete"><img src="{{ asset('images/heart(1).png') }}" alt="Voir"></a>
-									</form>
-								{% else %}
-									<form method="post" action="{{ path('favorite_add', {beatmapsetId: set.id}) }}">
-										<button type="submit">
-											<img src="{{ asset('images/heart.png') }}" alt="Ajouter">
-										</button>
-									</form>
-								{% endif %}
-								<a href="https://osu.ppy.sh/beatmapsets/{{ set.id }}/download" title="Télécharger">
-									<img src="{{ asset('images/download.png') }}" alt="Télécharger">
-								</a>
+						<div class="beatmap-card">
+							<div class="card-cover">
+								<img src="{{ set.covers.cover|default('https://assets.ppy.sh/beatmaps/' ~ set.id ~ '/covers/cover.jpg') }}" alt="{{ set.title }}" loading="lazy">
+							</div>
+							<div class="card-content">
+								<h3>{{ set.artist }}
+									-
+									{{ set.title }}</h3>
+								<div class="card-actions">
+									{% if app.user and set.id in favoriteIds %}
+										<form method="post" action="{{ path('app_profile') }}"">
+											<button type="submit" class="btn btn-download">
+												Voir sur le profil
+											</button>
+										</form>
+									{% else %}
+										<form method="post" action="{{ path('favorite_add', {beatmapsetId: set.id}) }}">
+											<button type="submit" class="btn btn-download">
+												Favoris
+											</button>
+										</form>
+									{% endif %}
+									<a href="https://osu.ppy.sh/beatmapsets/{{ set.id }}/download" target="_blank" class="btn btn-download">Télécharger</a>
+								</div>
 							</div>
 						</div>
 					{% endfor %}

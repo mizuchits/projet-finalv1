@@ -7,6 +7,14 @@ body {
     position: relative;
 }
 
+button {
+    border: none;
+}
+
+input {
+    color: $color-accent;
+}
+
 h1,
 h2,
 h3 {
@@ -110,9 +118,8 @@ nav ul li a {
         flex-direction: column;
         width: 100%;
         text-align: center;
-        background-color: $color-accent;
-        gap: 0;
-
+        background-color: $primary-color;
+        gap: 15px;
         transform: scaleY(0);
         transform-origin: top;
         transition: transform 0.25s ease;
@@ -144,7 +151,7 @@ footer {
                 height: 150px;
             }
 
-            .footer-menu {
+            nav {
                 ul {
                     display: flex;
                     flex-direction: column;
