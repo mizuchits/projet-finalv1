@@ -4,6 +4,15 @@
     .container {
         color: $color-accent;
 
+        .addflash {
+            background-color: $primary-color;
+            margin: 50px 60px;
+            padding: 50px;
+            color: $color-accent;
+            border-radius: 15px;
+            text-align: center;
+        }
+
         .empty_map {
             display: flex;
             justify-content: center;

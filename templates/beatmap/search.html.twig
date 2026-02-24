@@ -6,13 +6,17 @@
 {% block body %}
 	<section class="beatmap">
 		<div class="container">
+
 			{% for label, messages in app.flashes %}
 				{% for message in messages %}
-					<div class="alert alert-{{ label == 'error' ? 'danger' : label }}">
-						{{ message }}
+					<div class="addflash">
+						<div class="alert alert-{{ label == 'error' ? 'danger' : label }}">
+							{{ message }}
+						</div>
 					</div>
 				{% endfor %}
 			{% endfor %}
+
 			<form method="get" class="search">
 				<input type="text" name="q" value="{{ query }}" placeholder="Rechercher...">
 				<button class="btn" type="submit">Chercher</button>
@@ -37,7 +41,7 @@
 									{{ set.title }}</h3>
 								<div class="card-actions">
 									{% if app.user and set.id in favoriteIds %}
-										<form method="post" action="{{ path('app_profile') }}"">
+										<form method="post" action="{{ path('app_profile') }}" ">
 											<button type="submit" class="btn btn-download">
 												Voir sur le profil
 											</button>
