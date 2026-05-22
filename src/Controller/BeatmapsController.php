@@ -23,7 +23,14 @@ class BeatmapsController extends AbstractController
     {
         $user = $this->getUser();
         $query = $request->query->get('q', '');
+        $mode = $request->query->getInt('mode', 0);;
         $beatmaps = [];
+
+        dump([
+        'query_received' => $query,
+        'mode_received'  => $mode,
+        'full_query'     => $request->query->all()
+    ]);
 
         $favoriteIds = [];
         if ($user) {
@@ -32,14 +39,16 @@ class BeatmapsController extends AbstractController
         }
 
         if (!$query) {
-            $beatmaps = $this->osuApi->searchBeatmaps('', 20);
+            $beatmaps = $this->osuApi->searchBeatmaps('', 20, $mode);
         } else {
-            $beatmaps = $this->osuApi->searchBeatmaps($query, 20);
+            $beatmaps = $this->osuApi->searchBeatmaps($query, 20, $mode);
         }
+        // dd($beatmaps);
 
         return $this->render('beatmap/search.html.twig', [
             'beatmaps' => $beatmaps,
             'query' => $query,
+            'mode' => $mode,
             'user' => $user,
             'favoriteIds' => $favoriteIds,
         ]);

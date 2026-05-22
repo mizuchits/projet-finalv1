@@ -12,7 +12,7 @@ class OsuapiService
     ) {
     }
 
-    public function searchBeatmaps(string $query, int $limit = 20): array
+    public function searchBeatmaps(string $query, int $limit = 20, int $mode = 0): array
     {
         $token = $this->tokenService->getAccessToken();
         $response = $this->client->request('GET', 'https://osu.ppy.sh/api/v2/beatmapsets/search', [
@@ -22,6 +22,7 @@ class OsuapiService
             'query' => [
                 'q' => $query,
                 'limit' => min($limit, 50),
+                'm' => $mode,
             ],
         ]);
 

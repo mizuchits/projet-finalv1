@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Mapping\Attribute as Vich;
-use symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -63,6 +63,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $OsuId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $OsuUsername = null;
 
     public function __construct()
     {
@@ -279,6 +285,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getOsuId(): ?int
+    {
+        return $this->OsuId;
+    }
+
+    public function setOsuId(?int $OsuId): static
+    {
+        $this->OsuId = $OsuId;
+
+        return $this;
+    }
+
+    public function getOsuUsername(): ?string
+    {
+        return $this->OsuUsername;
+    }
+
+    public function setOsuUsername(?string $OsuUsername): static
+    {
+        $this->OsuUsername = $OsuUsername;
 
         return $this;
     }

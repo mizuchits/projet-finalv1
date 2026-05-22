@@ -27,11 +27,12 @@
             gap: 10px;
             margin: 40px 0;
 
-            input {
+            input, .mods {
                 background-color: $primary-color;
                 padding: 15px;
                 border: 1px solid rgba(255, 255, 255, 0.219);
                 border-radius: 5px;
+                color: white;
             }
 
             button {

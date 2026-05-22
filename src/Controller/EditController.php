@@ -17,13 +17,14 @@ final class EditController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            throw $this->createAccessDeniedException('Connectez-vous pour modifier votre profil.');
+            throw $this->createAccessDeniedException('Connectez vous pour modifier votre profil.');
         }
 
         $form = $this->createForm(EditProfilType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setUpdateAt(new \DateTimeImmutable());
             $em->persist($user);
             $em->flush();
 

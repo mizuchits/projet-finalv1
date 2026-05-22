@@ -41,7 +41,7 @@
 						<a href={{path('app_logout')}}>Deconnexion</a>
 					</li>
 					<li>
-						<a href="{{ path('app_profile') }}" class="profil_btn">
+						<a href="{{ path('app_profile', { id: app.user.id }) }}" class="profil_btn">
 							{% if app.user and app.user.imageName %}
 								<img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="Avatar">
 							{% else %}
@@ -65,32 +65,38 @@
 </header>
 {% block body %}{% endblock %}</body><footer>
 <div class="container">
-	<div><img src={{asset('images/logo.png')}} alt=""></div>
-	<div>
-		<nav>
-			<ul>
-				<li>
-					<a href={{path('app_accueil')}}>Accueil</a>
-				</li>
-				<li>
-					<a href={{path('beatmap_search')}}>Beatmaps</a>
-				</li>
-				{% if is_granted('ROLE_USER') %}
-					<li>
-						<a href="app_logout">Deconnexion</a>
-					</li>
-				{% endif %}
-				{% if not is_granted('ROLE_USER') %}
-					<li>
-						<a href="app_login">Connexion</a>
-					</li>
-					<li>
-						<a href="app_register">S'inscrire</a>
-					</li>
-				{% endif %}
-			</ul>
-		</nav>
+	<div class="footer-content">
+		<div class="logo-section">
+			<img src="{{ asset('images/logo.png') }}" alt="OsuMap Manager Logo">
+		</div>
 
+		<div class="nav-section">
+			<nav>
+				<ul>
+					<li>
+						<a href="{{ path('app_accueil') }}">Accueil</a>
+					</li>
+					<li>
+						<a href="{{ path('beatmap_search') }}">Beatmaps</a>
+					</li>
+					{% if app.user %}
+						<li>
+							<a href="{{ path('app_profile') }}">Profil</a>
+						</li>
+						<li>
+							<a href="{{ path('app_logout') }}">Déconnexion</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="{{ path('app_login') }}">Connexion</a>
+						</li>
+						<li>
+							<a href="{{ path('app_register') }}">S'inscrire</a>
+						</li>
+					{% endif %}
+				</ul>
+			</nav>
+		</div>
 	</div>
 </div>
 <div class="footer-bottom">

@@ -20,21 +20,21 @@ final class ResetPasswordController extends AbstractController
     #[Route('/reset/password', name: 'app_forgot_password')]
     public function request(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
-        $form = $this->createForm(ResetPasswordRequestFormType::class); //Création du formulaire
-        $form->handleRequest($request); //Récupération et validation de la requête
+        $form = $this->createForm(ResetPasswordRequestFormType::class); 
+        $form->handleRequest($request); 
         
         if ($form->isSubmitted() && $form->isValid()) {
-            //Récupération du champ email dans une variable
-            $email = $form->get('email')->getData(); //Récupération du champ email dans une variable
-            $user = $userRepository->findOneBy(['email' => $email]); //Requete DQL pour récupérer l'objet utilisateur associé
+            
+            $email = $form->get('email')->getData(); 
+            $user = $userRepository->findOneBy(['email' => $email]); 
 
-            if ($user) { //Vérification si l'utilisateur existe
-                $token = Uuid::v4()->toRfc4122(); //Uuid = Universally Unique Identifier permet de créer un Token unique
-                $user->setResetToken($token); //On stocke le token dans l'objet user
-                $user->setResetTokenExpiresAt((new \DateTime())->modify('+1 hour')); //On stocke la date d'expiration du token dans l'objet user
+            if ($user) { 
+                $token = Uuid::v4()->toRfc4122(); 
+                $user->setResetToken($token); 
+                $user->setResetTokenExpiresAt((new \DateTime())->modify('+1 hour'));
                 $entityManager->flush(); //Envoi en base de données
 
-                $resetLink = $this->generateUrl('app_reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL); //Création du lien intégrant le token
+                $resetLink = $this->generateUrl('app_reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
                 $email = (new Email())
                     ->from('noreply@yourdomain.com')
                     ->to($user->getEmail())

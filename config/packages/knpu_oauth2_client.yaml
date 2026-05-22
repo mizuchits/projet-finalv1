@@ -1,0 +1,17 @@
+knpu_oauth2_client:
+    clients:
+        osu:
+            type: generic
+            client_id: '%env(OSU_CLIENT_ID)%'
+            client_secret: '%env(OSU_CLIENT_SECRET)%'
+            redirect_route: connect_osu_check
+            redirect_params: {}
+
+            # Nouvelle syntaxe
+            provider_class: League\OAuth2\Client\Provider\GenericProvider
+            provider_options:
+                urlAuthorize: 'https://osu.ppy.sh/oauth/authorize'
+                urlAccessToken: 'https://osu.ppy.sh/oauth/token'
+                urlResourceOwnerDetails: 'https://osu.ppy.sh/api/v2/me'
+                scopes:
+                    - 'public'

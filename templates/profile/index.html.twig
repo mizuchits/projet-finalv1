@@ -5,47 +5,55 @@
 
 {% block body %}
 	<section class="profile-header">
-    <div class="container">
-        {% if isOwnProfile %}
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label == 'error' ? 'danger' : label }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-        {% endif %}
+		<div class="container">
+			{% if isOwnProfile %}
+				{% for label, messages in app.flashes %}
+					{% for message in messages %}
+						<div class="alert alert-{{ label == 'error' ? 'danger' : label }}">
+							{{ message }}
+						</div>
+					{% endfor %}
+				{% endfor %}
+			{% endif %}
 
-        <h1>Profil de {{ targetUser.username }}</h1>
+			<h1>Profil de
+				{{ targetUser.username }}</h1>
+				{% if targetUser.osuId %}
+					<h2>osu: {{ targetUser.osuusername }}</h2>
+				{% endif %}
 
-        <div class="profile-card">
-            <div class="avatar-wrapper">
-                {% if targetUser.imageName %}
-                    <img src="{{ vich_uploader_asset(targetUser, 'imageFile') }}" alt="Avatar de {{ targetUser.username }}" class="avatar">
-                {% else %}
-                    <img src="{{ asset('images/default.png') }}" alt="Avatar par défaut" class="avatar">
-                {% endif %}
-            </div>
+			<div class="profile-card">
+				<div class="avatar-wrapper">
+					{% if targetUser.imageName %}
+						<img src="{{ vich_uploader_asset(targetUser, 'imageFile') }}" alt="Avatar de {{ targetUser.username }}" class="avatar">
+					{% else %}
+						<img src="{{ asset('images/default.png') }}" alt="Avatar par défaut" class="avatar">
+					{% endif %}
+				</div>
 
-            <div class="profile-info">
-                <h2>{{ targetUser.username }}</h2>
+				<div class="profile-info">
+					<h2>{{ targetUser.username }}</h2>
 
-                <p class="favorites-count">
-                    <strong>{{ favorites|length }}</strong> beatmaps en favoris
-                </p>
+					<p class="favorites-count">
+						<strong>{{ favorites|length }}</strong>
+						beatmaps en favoris
+					</p>
 
-                {% if targetUser.description is not empty %}
-                    <h3>Description</h3>
-                    <p>{{ targetUser.description }}</p>
-                {% endif %}
+					{% if targetUser.description is not empty %}
+						<h3>Description</h3>
+						<p>{{ targetUser.description }}</p>
+					{% endif %}
 
-                {% if isOwnProfile %}
-                    <a href="{{ path('app_edit') }}" class="btn btn-edit">Modifier mon profil</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</section>
+					{% if isOwnProfile %}
+						<a href="{{ path('app_edit') }}" class="btn btn-edit">Modifier mon profil</a>
+						{% if not targetUser.osuId %}
+							<a href="{{ path('connect_osu') }}" class="btn btn-osu">Lier mon compte osu!</a>
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<section class="favorites-section">
 		<div class="container">
@@ -75,7 +83,7 @@
 										<a href="{{ path('app_delete_favorite', {'id': fav.id}) }}" class="btn btn-delete" onclick="return confirm('Vraiment supprimer cette beatmap des favoris ?');">
 											Supprimer
 										</a>
-										<a href="{{ path('app_edit_beatmap', {'id': fav.id}) }}" class="btn">Éditer</a>
+										<a href="{{ path('app_edit_beatmap', {'id': fav.id}) }}" class="btn">Note</a>
 									{% endif %}
 								</div>
 							</div>

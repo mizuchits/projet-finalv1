@@ -7,16 +7,22 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\User;
 
 final class ProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('/profile/{id?}', name: 'app_profile')]
+    public function index(?int $id, EntityManagerInterface $em): Response
     {
-        $user = $this->getUser();
+        $currentUser = $this->getUser();
 
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
+        if ($id == NULL) {
+            $user = $currentUser;
+            if (!$user) {
+                return $this->redirectToRoute('app_login');
+            }
+        } else {
+            $user = $em->getRepository(User::class)->find($id);
         }
 
         $targetUser = $user;

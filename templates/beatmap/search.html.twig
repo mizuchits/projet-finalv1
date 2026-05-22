@@ -18,7 +18,15 @@
 			{% endfor %}
 
 			<form method="get" class="search">
-				<input type="text" name="q" value="{{ query }}" placeholder="Rechercher...">
+				<input type="text" name="q" value="{{ query }}" placeholder="Rechercher un beatmap...">
+
+				<select name="mode" class="mods">
+					<option value="0" {{ mode == 0 ? 'selected' : '' }}>osu! Standard</option>
+					<option value="1" {{ mode == 1 ? 'selected' : '' }}>osu! Taiko</option>
+					<option value="2" {{ mode == 2 ? 'selected' : '' }}>osu! Catch</option>
+					<option value="3" {{ mode == 3 ? 'selected' : '' }}>osu! Mania</option>
+				</select>
+
 				<button class="btn" type="submit">Chercher</button>
 			</form>
 			{% if beatmaps is empty %}
@@ -33,7 +41,7 @@
 					{% for set in beatmaps %}
 						<div class="beatmap-card">
 							<div class="card-cover">
-								<img src="{{ set.covers.cover|default('https://assets.ppy.sh/beatmaps/' ~ set.id ~ '/covers/cover.jpg') }}" alt="{{ set.title }}" loading="lazy">
+								<img src="{{ set.covers.cover|default('https://assets.ppy.sh/beatmaps/' ~ set['id'] ~ '/covers/cover.jpg') }}" alt="{{ set.title }}" loading="lazy">
 							</div>
 							<div class="card-content">
 								<h3>{{ set.artist }}

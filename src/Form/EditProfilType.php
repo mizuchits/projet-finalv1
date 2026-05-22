@@ -25,10 +25,10 @@ class EditProfilType extends AbstractType
                     'class' => 'form-area',
                 ],
             ])
-            ->add('imageFile', FileType::class, [
+            ->add('ImageFile', FileType::class, [
                 'required' => false,
                 'mapped' => true,
-                'label' => 'Photo de profil',
+                'label' => 'Photo de profil (jpg, png, gif, webp - max 2 Mo)',
                 'attr' => [
                     'accept' => '.jpg,.jpeg,.png,.gif,.webp',
                 ],
