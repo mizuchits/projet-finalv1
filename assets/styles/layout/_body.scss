@@ -5,6 +5,9 @@ body {
     font-family: $primary-font;
     background-color: $bg-color;
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 button {
@@ -137,7 +140,7 @@ header {
 footer {
     background-color: $primary-color;
     color: #fff;
-    margin-top: 3rem;
+    margin-top: auto;
     text-align: center;
     border-top: 1px solid rgba(#ff69b4, 0.3);
 

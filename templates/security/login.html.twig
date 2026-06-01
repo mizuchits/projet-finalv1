@@ -19,10 +19,10 @@
 					</div>
 				{% endif %}
 
-				<h1>Please sign in</h1>
-				<label for="username">Username</label>
+				<h1>Connexion</h1>
+				<label for="username">Nom d'utilisateur</label>
 				<input type="text" value="{{ last_username }}" name="_username" id="username" autocomplete="username" required autofocus>
-				<label for="password">Password</label>
+				<label for="password">Mot de passe</label>
 				<input type="password" name="_password" id="password" autocomplete="current-password" required>
 				<input
 				type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">

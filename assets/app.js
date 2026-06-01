@@ -15,3 +15,29 @@ const nav = document.querySelector('.links-menu');
 menu.addEventListener('click', () => {
   nav.classList.toggle('nav-menu');
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    let mybutton = document.getElementById("myBtn");
+
+    window.onscroll = function() {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    function topFunction() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+    mybutton.addEventListener('click', topFunction);
+});

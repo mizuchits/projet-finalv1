@@ -5,6 +5,9 @@
 
 {% block body %}
 	<section class="beatmap">
+		<section class="toTop">
+			<button onclick="topFunction()" id="myBtn" title="Go to top">↑</button>
+		</section>
 		<div class="container">
 
 			{% for label, messages in app.flashes %}

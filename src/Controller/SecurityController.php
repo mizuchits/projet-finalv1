@@ -35,24 +35,38 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    #[Route(path:'/register', name:'app_register')]
+    #[Route(path: '/register', name: 'app_register')]
     public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(['ROLE_USER']);
             $user->setPassword(
                 $passwordEncoder->hashPassword($user, $form->get('password')->getData())
             );
-            $entityManager->persist($user);
-            $entityManager->flush();
-            
-            return $this->redirectToRoute('app_login');
+
+            if ($entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()])) {
+                $form->get('email')->addError(new \Symfony\Component\Form\FormError('Cette adresse email est déjà utilisée.'));
+                $errors = true;
+            }
+
+            if ($entityManager->getRepository(User::class)->findOneBy(['username' => $user->getUsername()])) {
+                $form->get('username')->addError(new \Symfony\Component\Form\FormError('Ce nom d\'utilisateur est déjà pris.'));
+                $errors = true;
+            }
+
+            if (!$errors) {
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Compte créé avec succès !');
+                return $this->redirectToRoute('app_login');
+            }
         }
-        
+
         return $this->render('security/register.html.twig', [
             'Register' => $form->createView(),
         ]);

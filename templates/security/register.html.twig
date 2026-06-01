@@ -9,6 +9,12 @@
 			<div class="form-container">
 				<h2>Créer un compte</h2>
 
+				{% if form_errors(Register) %}
+					<div class="alert alert-danger">
+						{{ form_errors(Register) }}
+					</div>
+				{% endif %}
+
 				{{ form_start(Register) }}
 				{{ form_widget(Register) }}
 				<button type="submit" class="btn">S'inscrire</button>
