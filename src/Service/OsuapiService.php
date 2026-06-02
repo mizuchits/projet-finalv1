@@ -39,10 +39,6 @@ class OsuapiService
 {
     $token = $this->tokenService->getAccessToken();
 
-    if (empty($token)) {
-        dd('Token vide ! Vérifie OsuTokenService et .env.local');
-    }
-
     $fullUrl = "https://osu.ppy.sh/api/v2/beatmapsets/{$beatmapsetId}";
 
     $response = $this->client->request('GET', $fullUrl, [

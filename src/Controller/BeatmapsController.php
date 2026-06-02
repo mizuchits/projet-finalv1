@@ -26,12 +26,6 @@ class BeatmapsController extends AbstractController
         $mode = $request->query->getInt('mode', 0);;
         $beatmaps = [];
 
-        dump([
-        'query_received' => $query,
-        'mode_received'  => $mode,
-        'full_query'     => $request->query->all()
-    ]);
-
         $favoriteIds = [];
         if ($user) {
             $favorites = $em->getRepository(Favorite::class)->findBy(['user' => $user]);
