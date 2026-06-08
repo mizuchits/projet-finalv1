@@ -8,6 +8,9 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-image: url('~@images/button_bg.svg');
+    background-position: 50%;
+    background-size: 175%;
 }
 
 button {
