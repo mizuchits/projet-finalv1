@@ -57,14 +57,11 @@ class SecurityController extends AbstractController
                 $form->get('username')->addError(new \Symfony\Component\Form\FormError('Ce nom d\'utilisateur est déjà pris.'));
                 $errors = true;
             }
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-            if (!$errors) {
-                $entityManager->persist($user);
-                $entityManager->flush();
-
-                $this->addFlash('success', 'Compte créé avec succès !');
-                return $this->redirectToRoute('app_login');
-            }
+            $this->addFlash('success', 'Compte créé avec succès !');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('security/register.html.twig', [
